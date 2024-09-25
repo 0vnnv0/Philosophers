@@ -6,7 +6,7 @@
 /*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:11:52 by anna              #+#    #+#             */
-/*   Updated: 2024/09/24 16:47:07 by anna             ###   ########.fr       */
+/*   Updated: 2024/09/25 14:38:20 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	main(int argc, char **argv)
 	else
 	{
 		if (is_valid(argc, argv))
-			ft_set_simu(&new_simulation, argc, argv);			
+		{
+			ft_set_simu(&new_simulation, argc, argv);
+		//	ft_set_philos(&new_simulation);
+		}		
 	}
 	return (0);
 }

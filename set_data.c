@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:23:40 by anna              #+#    #+#             */
-/*   Updated: 2024/09/25 17:47:39 by anna             ###   ########.fr       */
+/*   Updated: 2024/09/26 14:38:02 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_set_simu(t_simulation *simu, int argc, char **argv)
 	{
 		simu->forks[i].fork_id = i;	
 		simu->philos[i].philo_id = i + 1;
-		printf("%d\n", simu->philos[i].philo_id);
 		i++;
 	}
 }
@@ -47,7 +46,14 @@ void	ft_set_philos(t_simulation *simu)
 	i = 0;
 	while (i < simu->nr_of_philosophers)
 	{
-		simu->philos[i].last_meal_time = gettimeofday();
+		simu->philos[i].last_meal_time = ft_gettime();
 		simu->philos[i].meals_eaten = 0;
+		simu->philos[i].left_fork = &simu->forks[i];
+		if (i == simu->nr_of_philosophers - 1)
+			simu->philos[i].right_fork = &simu->forks[0];
+		else
+			simu->philos[i].right_fork = &simu->forks[i + 1];
+		simu->philos[i].simu = simu;
+		i++;
 	}
 }

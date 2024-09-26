@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:46:41 by anna              #+#    #+#             */
-/*   Updated: 2024/09/25 14:45:56 by anna             ###   ########.fr       */
+/*   Updated: 2024/09/26 14:27:21 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+
+typedef struct s_simulation	t_simulation;
 
 typedef struct s_fork
 {
@@ -42,10 +44,11 @@ typedef struct s_simulation
 	t_fork			*forks;
 }	t_simulation;
 
-int		is_valid(int argc, char **argv);
-int		ft_atoi(char *nr);
-int		ft_isnumber(char *nr);
-void	ft_set_simu(t_simulation *simu, int argc, char **argv);
-void	ft_set_philos(t_simulation *simu);
+int			is_valid(int argc, char **argv);
+int			ft_atoi(char *nr);
+int			ft_isnumber(char *nr);
+void		ft_set_simu(t_simulation *simu, int argc, char **argv);
+void		ft_set_philos(t_simulation *simu);
+long long	ft_gettime(void);
 
 

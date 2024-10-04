@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:31:15 by anna              #+#    #+#             */
-/*   Updated: 2024/09/26 14:20:35 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:46:16 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 long long	ft_gettime(void)
 {
 	struct timeval	tv;
-	long long		timestamp;
 
 	gettimeofday(&tv, NULL);
-	timestamp = (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
-	return (timestamp);
+	return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
 }
 
 int	ft_atoi(char *nr)

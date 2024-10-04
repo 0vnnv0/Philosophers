@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:11:52 by anna              #+#    #+#             */
-/*   Updated: 2024/09/26 14:27:26 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:49:38 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 		{
 			ft_set_simu(&new_simulation, argc, argv);
 			ft_set_philos(&new_simulation);
+			ft_create_threads(&new_simulation);
 		}		
 	}
 	return (0);

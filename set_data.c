@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:23:40 by anna              #+#    #+#             */
-/*   Updated: 2024/09/26 14:38:02 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:03:06 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_set_simu(t_simulation *simu, int argc, char **argv)
 	{
 		simu->forks[i].fork_id = i;	
 		simu->philos[i].philo_id = i + 1;
+		pthread_mutex_init(&simu->forks[i].mutex, NULL);
 		i++;
 	}
 }

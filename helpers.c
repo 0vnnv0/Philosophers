@@ -3,46 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 13:31:15 by anna              #+#    #+#             */
-/*   Updated: 2024/09/30 13:46:16 by anna             ###   ########.fr       */
+/*   Created: 2024/12/05 17:49:07 by anschmit          #+#    #+#             */
+/*   Updated: 2024/12/12 17:08:21 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_gettime(void)
+void	status(t_philosopher *philo, char *status)
 {
-	struct timeval	tv;
+	long long	current_time;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
+	current_time = ft_get_time() - philo->simu->start_time;
+	printf("%lld %d %s\n", current_time, philo->philo_id, status);
 }
 
-int	ft_atoi(char *nr)
+int	ft_atoi(char *str)
 {
-	int	result;
+	int	nbr;
 
-	result = 0;
-	while (*nr == ' ' || *nr == '	' || *nr == '+')
-		nr++;
-	if (*nr == '-')
+	nbr = 0;
+	while (*str == ' ' || *str == '\t' || *str == '+')
+		str++;
+	if (*str == '-')
 		return (0);
-	if (*nr >= '0' && *nr <= '9')
+	while (*str != '\0')
 	{
-		result = result * 10 + (*nr - 48);
-		nr++;
+		if (*str >= '0' && *str <= '9')
+		{
+			nbr = nbr * 10 + (*str - 48);
+			str++;
+		}
 	}
-	return (result);
+	return (nbr);
 }
 
-int	ft_isnumber(char *nr)
+int	ft_isnumber(char *nbr)
 {
-	while (*nr)
+	while (*nbr)
 	{
-		if (*nr >= '0' && *nr <= '9')
-			nr++;
+		if (*nbr >= '0' && *nbr <= '9')
+			nbr++;
 		else
 			return (0);
 	}

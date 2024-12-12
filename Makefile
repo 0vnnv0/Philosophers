@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anna <anna@student.42.fr>                  +#+  +:+       +#+         #
+#    By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/24 12:23:57 by anna              #+#    #+#              #
-#    Updated: 2024/10/01 13:50:32 by anna             ###   ########.fr        #
+#    Created: 2024/12/04 15:46:22 by anschmit          #+#    #+#              #
+#    Updated: 2024/12/12 18:09:27 by anschmit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -pthread
 
-SRCS = main.c helpers.c set_data.c set_simu.c
+SRCS = main.c helpers.c simu.c set_philos.c clean.c end.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -35,4 +35,3 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
-

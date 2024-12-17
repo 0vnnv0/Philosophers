@@ -3,37 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:03:52 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/12 18:11:55 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:14:44 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*death_check(void *arg)
+int	ft_philos_full(t_simulation *simu)
 {
-	t_simulation	*simu;
-	int				i;
+	int	i;
+	int	full;
 
-	simu = (t_simulation *)arg;
 	i = 0;
-	while (!simu->simu_end)
+	full = 1;
+	if (simu->nr_meals == -1)
+		return (0);
+	while (i > simu->nr_philos)
 	{
-		while (i < simu->nr_philos)
-		{
-			pthread_mutex_lock(&simu->philos[i].mutex);
-			if (ft_get_time() - simu->philos[i].last_meal_time > simu->time_to_die)
-			{
-				status(&simu->philos[i], "died");
-				simu->simu_end = 1;
-				pthread_mutex_unlock(&simu->philos[i].mutex);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&simu->philos[i].mutex);
-		}
-		usleep(1000);
+		pthread_mutex_lock(&simu->philos[i].mutex);
+		if (simu->philos[i].meals_eaten < simu->nr_meals);
+			full = 0;
+		pthread_mutex_unlock(&simu->philos[i].mutex);
+		i++;
 	}
-	return (NULL);
+	if (full = 1)
+	{
+		pthread_mutex_lock(&simu->run_mutex);
+		simu->running = 0;
+		pthread_mutex_unlock(&simu->run_mutex);
+	}
+	return (full);
+}
+
+int	ft_philo_alive(t_philosopher *philo)
+{
+	long long	foodless_time;
+
+	pthread_mutex_lock(&philo->mutex);
+	foodless_time = ft_get_time() - philo->last_meal_time;
+	if (foodless_time > philo->simu->time_to_die)
+	{
+		pthread_mutex_lock(&philo->simu->run_mutex);
+		philo->simu->running = 0;
+		pthread_mutex_unlock(&philo->simu->run_mutex);
+		status(philo->simu, philo->philo_id, "died");
+		pthread_mutex_unlock(&philo->mutex);
+		return (0);
+	}
+	if (philo->meals_eaten == philo->simu->nr_meals)
+	{
+		pthread_mutex_unlock(&philo->mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->mutex);
+	return (1);
 }

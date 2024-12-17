@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:42:17 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/12 18:15:54 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:16:05 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,15 @@ int	ft_validate(int argc, char **argv)
 	return (1);
 }
 
-void	set_forks(t_simulation *simu)
-{
-	int	i;
-
-	i = 0;
-	while (i < simu->nr_philos)
-	{
-		if (pthread_mutex_init(&simu->forks[i].mutex, NULL) != 0)
-		{
-			printf("Failed to initialize mutex for fork %d\n", i);
-			exit(1);
-		}
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_simulation	simu;
-	pthread_t	death_checker;
 
 	if (ft_validate(argc, argv) == 0)
 		return (1);
 	set_simulation(&simu, argc, argv);
-	set_forks(&simu);
 	set_philosophers(&simu);
-	pthread_create(&death_checker, NULL, death_check, & simu);
-	ft_create_threads(&simu);
-	ft_join_threads(&simu);
+//	run_simu(&simu);
+	clean_simu(&simu);
 	return (0);
 }

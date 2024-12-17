@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:42:42 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/12 18:04:40 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:14:29 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ typedef struct s_simulation
 	int				time_to_sleep;
 	int				nr_meals;
 	long long		start_time;
-	int				simu_end;
+	int				running;
 	t_philosopher	*philos;
 	t_fork			*forks;
-	pthread_t		death_checker;
+	pthread_mutex_t run_mutex;
+	pthread_mutex_t log_mutex;
 }	t_simulation;
 
 int			ft_atoi(char *str);
@@ -57,8 +58,10 @@ int			set_simulation(t_simulation *simu, int argc, char **argv);
 void		set_philosophers(t_simulation *simu);
 void		ft_create_threads(t_simulation *simu);
 void		*ft_philo_routine(void *arg);
+int			ft_philo_eat(t_philosopher *philo);
 long long	ft_get_time(void);
-void		status(t_philosopher *philo, char *status);
+void		status(t_simulation *simu, int id, const char *status);
 int			clean_mutex(t_simulation *simu);
 void		ft_join_threads(t_simulation *simu);
 void		*death_check(void *arg);
+void		clean_simu(t_simulation *simu);

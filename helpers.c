@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:07 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/17 11:43:36 by anna             ###   ########.fr       */
+/*   Updated: 2025/01/10 16:30:49 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_get_time(void)
+size_t	time_ms(void)
 {
 	struct timeval	tv;
+	size_t			ms;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * (long long)1000LL) + (tv.tv_usec / 1000);
+	ms = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (ms);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -43,28 +45,26 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-void	status(t_simulation *simu, int id, const char *status)
+void	status(t_data *dinner, int id, const char *status)
 {
-	long long	current_time;
-	long long	run_time;
-	int			run;
+	size_t	current_time;
+	size_t	run_time;
+	int		run;
 
-	current_time = ft_get_time();
-	run_time = current_time - simu->start_time;
-	pthread_mutex_lock(&simu->run_mutex);
-	run = simu->running;
-	pthread_mutex_unlock(&simu->run_mutex);
-	pthread_mutex_lock(&simu->log_mutex);
-	if (run == 0 && ft_strncmp(status, "died", 4) != 0)
+	current_time = time_ms();
+	run_time = current_time - dinner->start_time;
+	pthread_mutex_lock(&dinner->log_mutex);
+	pthread_mutex_lock(&dinner->run_mutex);
+	run = dinner->running;
+	pthread_mutex_unlock(&dinner->run_mutex);
+	if (run || ft_strncmp(status, "died", 4) == 0)
 	{
-		pthread_mutex_unlock(&simu->log_mutex);
-		return ;
+		printf("%zu %d %s\n", run_time, id, status);
 	}
-	printf("%lld %d %s\n", run_time, id, status);
-	pthread_mutex_unlock(&simu->log_mutex);
+	pthread_mutex_unlock(&dinner->log_mutex);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	nbr;
 
@@ -73,13 +73,10 @@ int	ft_atoi(char *str)
 		str++;
 	if (*str == '-')
 		return (0);
-	while (*str != '\0')
+	while (*str >= '0' && *str <= '9')
 	{
-		if (*str >= '0' && *str <= '9')
-		{
-			nbr = nbr * 10 + (*str - 48);
-			str++;
-		}
+		nbr = nbr * 10 + (*str - 48);
+		str++;
 	}
 	return (nbr);
 }

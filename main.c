@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:42:17 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/17 15:16:05 by anna             ###   ########.fr       */
+/*   Updated: 2025/01/09 16:32:58 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	ft_validate(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_simulation	simu;
+	t_data	dinner;
+	size_t	start_time;
 
+	start_time = time_ms();
 	if (ft_validate(argc, argv) == 0)
 		return (1);
-	set_simulation(&simu, argc, argv);
-	set_philosophers(&simu);
-//	run_simu(&simu);
-	clean_simu(&simu);
+	init_dinner(&dinner, argc, argv, start_time);
+	clean_dinner(&dinner);
 	return (0);
 }

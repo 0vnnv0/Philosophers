@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:42:42 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/17 15:14:29 by anna             ###   ########.fr       */
+/*   Updated: 2025/01/10 16:40:53 by anschmit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-typedef struct s_simulation t_simulation;
+typedef struct s_data	t_data;
 
 typedef struct s_fork
 {
@@ -28,40 +28,44 @@ typedef struct s_philosopher
 {
 	int				philo_id;
 	int				meals_eaten;
-	long long		last_meal_time;
+	size_t			last_meal_time;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
-	t_simulation	*simu; 
+	t_data			*dinner; 
 }	t_philosopher;
 
-typedef struct s_simulation
+typedef struct s_data
 {
 	int				nr_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
 	int				nr_meals;
-	long long		start_time;
+	size_t			start_time;
 	int				running;
 	t_philosopher	*philos;
 	t_fork			*forks;
-	pthread_mutex_t run_mutex;
-	pthread_mutex_t log_mutex;
-}	t_simulation;
+	pthread_mutex_t	run_mutex;
+	pthread_mutex_t	log_mutex;
+}	t_data;
 
-int			ft_atoi(char *str);
+int			ft_atoi(const char *str);
 int			ft_isnumber(char *argv);
 int			ft_validate(int argc, char **argv);
-int			set_simulation(t_simulation *simu, int argc, char **argv);
-void		set_philosophers(t_simulation *simu);
-void		ft_create_threads(t_simulation *simu);
+void		init_philosophers(t_data *dinner);
+void		ft_create_threads(t_data *dinner);
 void		*ft_philo_routine(void *arg);
 int			ft_philo_eat(t_philosopher *philo);
-long long	ft_get_time(void);
-void		status(t_simulation *simu, int id, const char *status);
-int			clean_mutex(t_simulation *simu);
-void		ft_join_threads(t_simulation *simu);
+size_t		time_ms(void);
+void		status(t_data *dinner, int id, const char *status);
+int			clean_mutex(t_data *dinner);
+void		ft_join_threads(t_data *dinner);
 void		*death_check(void *arg);
-void		clean_simu(t_simulation *simu);
+void		clean_dinner(t_data *dinner);
+int			ft_all_done(t_data *dinner);
+int			ft_philo_alive(t_philosopher *philo);
+void		run_dinner(t_data *dinner);
+void		init_dinner(t_data *dinner, int argc, char **argv, size_t st);
+int			is_simulation_running(t_data *dinner);

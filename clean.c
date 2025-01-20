@@ -3,60 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anschmit <anschmit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anna <anna@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:09:19 by anschmit          #+#    #+#             */
-/*   Updated: 2024/12/12 17:23:48 by anschmit         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:48:46 by anna             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	clean_philo_mutex(t_simulation *simu, int i)
+int	clean_philo_mutex(t_data *dinner, int i)
 {
 	int	j;
 
 	j = 0;
 	while (j <= i)
 	{
-		pthread_mutex_destroy(&simu->forks[j].mutex);
+		pthread_mutex_destroy(&dinner->forks[j].mutex);
 		j++;
 	}
 	j = 0;
 	while (j < i)
 	{
-		pthread_mutex_destroy(&simu->philos[j].mutex);
+		pthread_mutex_destroy(&dinner->philos[j].mutex);
 		j++;
 	}
-	free(simu->forks);
-	free(simu->philos);
+	free(dinner->forks);
+	free(dinner->philos);
 	return (2);
 }
 
-int	clean_mutex(t_simulation *simu)
+int	clean_mutex(t_data *dinner)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < simu->nr_philos)
+	while (i < dinner->nr_philos)
 	{
-		simu->philos[i].philo_id = i + 1;
-		if (pthread_mutex_init(&simu->forks[i].mutex, NULL) != 0)
+		dinner->philos[i].philo_id = i + 1;
+		if (pthread_mutex_init(&dinner->forks[i].mutex, NULL) != 0)
 		{
 			while (j < i)
 			{
-				pthread_mutex_destroy(&simu->forks[j].mutex);
-				pthread_mutex_destroy(&simu->philos[j].mutex);
+				pthread_mutex_destroy(&dinner->forks[j].mutex);
+				pthread_mutex_destroy(&dinner->philos[j].mutex);
 				j++;
 			}
-			free(simu->forks);
-			free(simu->philos);
+			free(dinner->forks);
+			free(dinner->philos);
 			return (2);
 		}
-		if (pthread_mutex_init(&simu->philos[i].mutex, NULL) != 0)
-			clean_philo_mutex(simu, i);
+		if (pthread_mutex_init(&dinner->philos[i].mutex, NULL) != 0)
+			clean_philo_mutex(dinner, i);
 		i++;
 	}
 	return (0);

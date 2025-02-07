@@ -25,11 +25,11 @@ To succeed in this assignment, follow these rules:
 
 - Global variables are forbidden.
 - The program should take the following command-line arguments:
-          - number_of_philosophers: The number of philosophers (also the number of forks).
-          - time_to_die (in milliseconds): If a philosopher doesn't start eating within this time after their last meal or the beginning of the simulation, they die.
-          - time_to_eat (in milliseconds): The time it takes for a philosopher to eat, requiring both forks.
-          - time_to_sleep (in milliseconds): The time a philosopher spends sleeping.
-          - number_of_times_each_philosopher_must_eat (optional): If specified, the simulation stops when all philosophers have eaten at least this number of times. Otherwise, it stops when a philosopher dies.
+&emsp; &emsp; - number_of_philosophers: The number of philosophers (also the number of forks).
+&emsp; &emsp; - time_to_die (in milliseconds): If a philosopher doesn't start eating within this time after their last meal or the beginning of the simulation, they die.
+&emsp; &emsp; - time_to_eat (in milliseconds): The time it takes for a philosopher to eat, requiring both forks.
+&emsp; &emsp; - time_to_sleep (in milliseconds): The time a philosopher spends sleeping.
+&emsp; &emsp; - number_of_times_each_philosopher_must_eat (optional): If specified, the simulation stops when all philosophers have eaten at least this number of times. Otherwise, it stops when a philosopher dies.
 - Each philosopher is assigned a number from 1 to number_of_philosophers.
 - Philosopher number 1 sits next to philosopher number number_of_philosophers. For other philosophers N, they sit between N-1 and N+1.
 - The program should display the state changes of philosophers in a specific format, including timestamp and philosopher number.

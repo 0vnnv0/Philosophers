@@ -19,7 +19,7 @@ Here are the key details of the problem:
 - Philosophers are unaware if another philosopher is on the verge of starvation.
 - The objective is to prevent philosophers from dying.
 
-## Program Rules
+## ✅ Project Rules
 
 To succeed in this assignment, follow these rules:
 

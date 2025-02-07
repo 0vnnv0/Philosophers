@@ -4,7 +4,7 @@
 
 Philosophers is a simulation program written in C that represents a classic dining philosophers problem. The program simulates a group of philosophers sitting at a round table, alternating between eating, thinking, and sleeping. Their goal is to avoid starvation while sharing a bowl of spaghetti and a limited number of forks. 
 
-## Problem Description
+## Problem Description 
 
 Here are the key details of the problem:
 
@@ -18,3 +18,21 @@ Here are the key details of the problem:
 - Philosophers do not communicate or interact directly with each other.
 - Philosophers are unaware if another philosopher is on the verge of starvation.
 - The objective is to prevent philosophers from dying.
+
+## Program Rules
+
+To succeed in this assignment, follow these rules:
+
+- Global variables are forbidden.
+- The program should take the following command-line arguments:
+          - number_of_philosophers: The number of philosophers (also the number of forks).
+          - time_to_die (in milliseconds): If a philosopher doesn't start eating within this time after their last meal or the beginning of the simulation, they die.
+          - time_to_eat (in milliseconds): The time it takes for a philosopher to eat, requiring both forks.
+          - time_to_sleep (in milliseconds): The time a philosopher spends sleeping.
+          - number_of_times_each_philosopher_must_eat (optional): If specified, the simulation stops when all philosophers have eaten at least this number of times. Otherwise, it stops when a philosopher dies.
+- Each philosopher is assigned a number from 1 to number_of_philosophers.
+- Philosopher number 1 sits next to philosopher number number_of_philosophers. For other philosophers N, they sit between N-1 and N+1.
+- The program should display the state changes of philosophers in a specific format, including timestamp and philosopher number.
+- Log messages for state changes should be distinct and not mixed with other messages.
+- The message announcing a philosopher's death should be displayed within 10 ms of their actual death.
+- The program must avoid data races.
